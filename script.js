@@ -48,16 +48,29 @@ function showQuestion() {
         const button = document.createElement('button');
         button.innerText = option;
         button.classList.add('option');
-        button.addEventListener('click', () => selectOption(option));
+        button.addEventListener('click', () => selectOption(option, button));
         optionsElement.appendChild(button);
     });
 }
 
-function selectOption(selectedOption) {
+function selectOption(selectedOption, button) {
     const currentQuestion = questions[currentQuestionIndex];
     if (selectedOption === currentQuestion.answer) {
         score++;
+        button.classList.add('correct');
+    } else {
+        button.classList.add('incorrect');
     }
+
+    // Disable all options after selection
+    const options = optionsElement.querySelectorAll('.option');
+    options.forEach(opt => {
+        opt.disabled = true;
+        if (opt.innerText === currentQuestion.answer) {
+            opt.classList.add('correct'); // Highlight the correct answer
+        }
+    });
+
     nextButton.classList.remove('hidden');
 }
 
@@ -76,6 +89,12 @@ function showResult() {
     optionsElement.classList.add('hidden');
     resultElement.classList.remove('hidden');
     scoreElement.innerText = `${score} out of ${questions.length}`;
+    scoreElement.classList.add('score'); // Add score class for effect
+
+    // Remove the score class after a short delay to allow the effect to be seen
+    setTimeout(() => {
+        scoreElement.classList.remove('score');
+    }, 2000);
 }
 
 restartButton.addEventListener('click', startQuiz);
