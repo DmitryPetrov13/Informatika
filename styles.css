@@ -53,3 +53,22 @@ h1 {
 #next-button:hover, #restart-button:hover {
     background: #0056b3;
 }
+
+.correct {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    transition: background-color 0.5s ease;
+}
+
+.incorrect {
+    background-color: #f44336; /* Red */
+    color: white;
+    transition: background-color 0.5s ease;
+}
+
+.score {
+    font-size: 2em;
+    color: #007bff;
+    transition: transform 0.5s ease;
+    transform: scale(1.5);
+}
